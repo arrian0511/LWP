@@ -1,0 +1,48 @@
+
+.topbar-container {
+	padding: 0;
+	margin: 0px 0px 0px @sidebar-large-width;
+	width: @topbar-main-width;
+	height: @topbar-main-height;
+	background-color: @topbar-main-bgcolor;
+	border-bottom: 1px solid #e7eaec;
+	z-index: 2;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.topbar-user {
+	order: 2;
+	padding: 13px 0px;
+	margin-right: 40px;
+	a {
+		font-size: 14px;
+		text-decoration: none;
+		&:focus,
+		&:hover {
+			background-color: transparent;
+		}
+	}
+}
+
+.topbar-items {
+	order: 1;
+	padding: 13px 0px;
+	margin-right: 30px;
+	a {
+		font-size: 14px;
+		text-decoration: none;
+		&:focus,
+		&:hover {
+			background-color: transparent;
+		}
+		span {
+			position: relative;
+			top: -10px;
+			right: 10px;
+			border-radius: 0;
+		}
+	}
+}
