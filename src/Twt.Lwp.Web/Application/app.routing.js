@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/router", "./components/tweet/tweet.component"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/router", "./components/home/home.component", "./components/tweet/tweet.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "@angular/router", "./components/tweet/tweet.c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, tweet_component_1;
+    var core_1, router_1, home_component_1, tweet_component_1;
     var routes, AppRouting;
     return {
         setters:[
@@ -20,16 +20,23 @@ System.register(["@angular/core", "@angular/router", "./components/tweet/tweet.c
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (home_component_1_1) {
+                home_component_1 = home_component_1_1;
+            },
             function (tweet_component_1_1) {
                 tweet_component_1 = tweet_component_1_1;
             }],
         execute: function() {
             routes = [
-                // {
-                // 	path: '',
-                // 	redirectTo: '/home',
-                // 	pathMatch: 'full'
-                // },
+                {
+                    path: '',
+                    redirectTo: '/home',
+                    pathMatch: 'full'
+                },
+                {
+                    path: 'home',
+                    component: home_component_1.HomeComponent
+                },
                 {
                     path: 'tweet',
                     component: tweet_component_1.TweetComponent

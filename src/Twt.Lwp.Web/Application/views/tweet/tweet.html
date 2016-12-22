@@ -1,2 +1,32 @@
-﻿
-<button type="button" class="btn btn-default" (click)="OnClickGetRecord('arrian')">button</button>
+﻿<div class="user-container">
+	<form [formGroup]="mFormCreate" (ngSubmit)="OnSubmitForm($event, mFormCreate.value)">
+		<div class="form-group" [ngClass]="{'has-error': !mFormCreate.controls['UserName'].valid}">
+			<input class="form-control" type="text" placeholder="Enter User Name" 
+					[formControl]="mFormCreate.controls['UserName']">
+		</div>
+		<div class="form-group">
+			<label for="_selectItem">Example select</label>
+			<select class="form-control" [formControl]="mFormCreate.controls['RecCount']" id="_selectItem">
+				<option [value]="1">1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+		</div>
+		<button class="btn btn-outline-success" [disabled]="!mFormCreate.valid" type="submit">Search</button>
+	</form>
+</div>
+
+<div class="tweet-container">
+	<ul class="tweet-item">
+		<li *ngFor="let _item of mTweets.Tweets">
+			<span class="tweet-title">{{_item.Title}}</span>
+			<a class="tweet-content">
+				<span>{{_item.Message}}</span>
+			</a>
+			<i class="tweet-retweet fa fa-apple fa-lg">{{_item.RetweetCount}}</i>
+			<i class="tweet-like fa fa-apple fa-lg">{{_item.LikeCount}}</i>
+		</li>
+	</ul>
+</div>

@@ -7,8 +7,10 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             Tweet = (function () {
                 function Tweet() {
-                    this.Name = "";
+                    this.Title = "";
                     this.Message = "";
+                    this.RetweetCount = 0;
+                    this.LikeCount = 0;
                 }
                 return Tweet;
             }());

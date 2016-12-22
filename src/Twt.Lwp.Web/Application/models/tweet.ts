@@ -1,10 +1,14 @@
 ﻿export class Tweet
 {
-	public Name:		string;
-	public Message:		string;
+	public Title: 			string;
+	public Message:			string;
+	public RetweetCount: 	number;
+	public LikeCount: 		number;
 
 	constructor() {
-		this.Name 		= "";
-		this.Message	= "";
+		this.Title			= "";
+		this.Message		= "";
+		this.RetweetCount	= 0;
+		this.LikeCount		= 0;
 	}
 }

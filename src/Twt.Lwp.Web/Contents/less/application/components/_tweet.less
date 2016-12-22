@@ -1,0 +1,37 @@
+.tweet-container {
+	position: absolute;
+	margin-left: @user-input-width;
+	padding-left: 10px;
+	z-index: 1;
+}
+
+.tweet-item {
+	display: flex;
+	flex-direction: row;
+	display: block;
+	list-style: none;
+	padding: 20px;
+	
+	> li {
+		flex: 1;
+		padding: 20px;
+		.tweet-title {
+			display: block;
+			font-size: 18px;
+			font-weight: 600;
+		}
+		.tweet-content {
+			display: block;
+			font-size: 16px;
+		}
+		.tweet-retweet {
+			font-size: 16px;
+			padding-left: 0px;
+		}
+		.tweet-like {
+			font-size: 16px;
+			padding-left: 20px;
+		}
+	}
+}
+

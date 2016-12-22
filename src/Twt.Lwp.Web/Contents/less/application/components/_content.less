@@ -1,21 +1,12 @@
 .content-container {
-	padding: 0 15px;
-	margin: 0 0 0 @sidebar-large-width;
-	min-height: 568px;
-	position: relative;
-	z-index: 1;
-	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	top: @header-height;
+	width: 100%;
 }
 
-.content-first-item {
-	position: relative;
-	padding: 20px 20px;
-	.white-bg();
-	.border-bottom();
-}
-
-.content-second-item {
-	position: relative;
-	top: 20px;
-	.content-first-item();
+body {
+	margin: 0;
+	background-color: white;
 }

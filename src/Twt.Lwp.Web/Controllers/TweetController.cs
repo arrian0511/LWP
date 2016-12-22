@@ -49,12 +49,14 @@ namespace Core.Emp.Sys.Main.Controllers
 		[HttpGet("GetByUser/{name}")]
 		public async Task<IActionResult> GetByUser (string name)
 		{
-			//string _url = "http://search.twitter.com/search.json?q=pluralsight";
-			string _url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=twitterapi&count=2";
-			var _allrecord = new List<Tweet> ();			// Tweet List
-			var _client = new HttpClient();
-			var _task = await _client.GetAsync (_url);
-			var _response = await _task.Content.ReadAsAsync<List<Tweet>> ();
+			////string _url = "http://search.twitter.com/search.json?q=pluralsight";
+			//string _url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=twitterapi&count=2";
+			var _allrecord = new User ();			// User Information
+			var _tweetList = new List<Tweet> ();	// Tweet List
+
+			//var _client = new HttpClient();
+			//var _task = await _client.GetAsync (_url);
+			//var _response = await _task.Content.ReadAsAsync<List<Tweet>> ();
 
 
 			//var _task = _client.GetAsync (_url).ContinueWith ((_taswithmsg) => 
@@ -73,9 +75,12 @@ namespace Core.Emp.Sys.Main.Controllers
 			// TODO: Get Record on Twitter Here
 			//
 			/// Get All Records <BR>
+			_tweetList.Add (new Tweet () { Title = "First Tweet", Message = "The Modify Note command will be started and the main window will be displayed. Even if no product No. is open, this command can be executed in the Harness Drawing Input,  Customer Module Design, Sub-assy Design and Full-size Drawing Design modes.  If the user section’s constant server has not been registered in the common master <Server ID>(0079) when starting the command, the error message “e-201” will be displayed and the", RetweetCount = 3, LikeCount = 1 });
+			_tweetList.Add (new Tweet () { Title = "Second Tweet", Message = "The Modify Note command will be started and the main window will be displayed. Even if no product No. is open, this command can be executed in the Harness Drawing Input,  Customer Module Design, Sub-assy Design and Full-size Drawing Design modes.  If the user section’s constant server has not been registered in the common master <Server ID>(0079) when starting the command, the error message “e-201” will be displayed and the", RetweetCount = 2, LikeCount = 2 });
+			_tweetList.Add (new Tweet () { Title = "Third Tweet", Message = "The Modify Note command will be started and the main window will be displayed. Even if no product No. is open, this command can be executed in the Harness Drawing Input,  Customer Module Design, Sub-assy Design and Full-size Drawing Design modes.  If the user section’s constant server has not been registered in the common master <Server ID>(0079) when starting the command, the error message “e-201” will be displayed and the", RetweetCount = 1, LikeCount = 1 });
+			_allrecord = new User () { Name = name, Tweets = _tweetList };
 
-
-
+			/// Return JSON Result <BR>
 			return new JsonResult (_allrecord, DefJsonFormat);
 		}
 

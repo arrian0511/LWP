@@ -1,141 +1,17 @@
+.header-container {
+	position: fixed;
+	width: 100%;
+	height: @header-height;
+	background-color: #f3f3f4;
+	border-bottom: 1px solid #e7eaec !important;
+	z-index: 2;
 
-// Top Header
-.mainheader {
-	position: relative;
-	height: @mainheader-height;
-	margin-left: @sidebar-width;
-	background-color: @mainheader-bg-color;
-	overflow: hidden;
-	border-bottom: 1px solid #e7eaec;
-
-	.navbar {
-		border: 0;
+	span {
+		position: relative;
+		top: 10px;
+		padding-left: 20px;
+		font-size: 22px;
+		font-weight: 600;
+		color: black;
 	}
-
-	.navbar-static-top {
-		background: #f3f3f4;
-		.navbar-header {
-			min-height: 30px;
-			padding: 8px 10px;
-			> a {
-				background: #1ab394;
-				color: white;
-			}
-		}
-
-		.navbar-items {
-			li {
-				display: inline-block;
-				&:last-child {
-					margin-right: 40px;
-				}
-
-				> span {
-					padding: 15px 10px;
-					min-height: 30px;
-					font-size: 14px;
-				}
-
-				a {
-					padding: 15px 10px;
-					min-height: 30px;
-					font-size: 14px;
-
-					&:focus,
-					&:hover {
-						background-color: transparent;
-					}
-				}
-
-			}
-		}
-	}
-
-
-// .nav {
-// 	.navbar-header {
-// 		display: inline;
-// 		> a {
-// 			padding: 4px 12px;
-// 			margin: 14px 5px 5px 20px;
-// 			font-size: 14px;
-// 			float: left;
-// 		}
-
-// 		.navbar-form {
-// 			float: left;
-// 			height: 50px;
-// 			padding: 0;
-// 			width: 200px;
-// 			display: inline-table;
-// 		}
-// 	}
-
-// 	.navbar-top-links {
-// 		a {
-// 			font-size: 14px;
-// 		}
-// 		li {
-// 			display: inline-block;
-// 			a {
-// 				padding: 20px 10px;
-// 				min-height: 50px;
-// 			}
-// 		}
-// 		> li > a:hover,
-// 		> li > a:focus {
-// 			background-color: transparent
-// 		}
-// 		li:last-child {
-// 			margin-right: 40px;
-// 		}
-
-// 		.dropdown-menu {
-// 			li {
-// 				display: block;
-// 				a {
-// 					padding: 3px 20px;
-// 					min-height: 0;
-// 					div {
-// 						white-space: normal;
-// 					}
-// 				}
-// 			}
-// 			li:last-child {
-// 				margin-right: 0;
-// 			}
-// 		}
-
-// 		.dropdown-messages {
-// 			padding: 10px 10px 10px 10px;
-// 			margin-left: 5px;
-// 			width: 310px;
-// 			min-width: 0;
-// 			li a {
-// 				font-size: 12px;
-// 			}
-// 		}
-
-// 		.dropdown-tasks {
-// 			margin-left: -59px;
-// 			width: 310px;
-// 			min-width: 0;
-// 		}
-
-// 		.dropdown-alerts {
-// 			padding: 10px 10px 10px 10px;
-// 			margin-left: -123px;
-// 			width: 310px;
-// 			min-width: 0;
-// 			li a {
-// 				font-size: 12px;
-// 			}
-// 		}
-
-// 		.dropdown-user {
-// 			right: 0;
-// 			left: auto;
-// 		}
-// 	}
-// }
 }

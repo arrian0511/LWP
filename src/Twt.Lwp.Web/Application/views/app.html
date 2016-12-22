@@ -1,34 +1,7 @@
-﻿<div class="container">
-	<div class="navbar navbar-inverse navbar-fixed-bottom">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand">Twitter</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a [routerLink]="['/home']">Home</a></li>
-					<li><a [routerLink]="['/tweet']">Tweet</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="container body-start body-content">
-		<router-outlet></router-outlet>
-		<hr />
-		<footer>
-			<p>&copy; 2016 - Angular 2.0 Application</p>
-		</footer>
-	</div>
-</div>
+﻿<header class="header-container">
+	<span class="label">Look Who's Popular</span>
+</header>
 
-<!--<div class="alert-success">
-	<span>Hello Dude!</span>
-
-</div>-->
-
+<section class="content-container">
+	<tweet>Loading Tweet...</tweet>
+</section>
