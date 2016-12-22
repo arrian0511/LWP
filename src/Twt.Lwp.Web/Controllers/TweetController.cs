@@ -8,11 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Twt.Lwp.Models;
 using System.Net.Http;
+using LinqToTwitter;
+using Microsoft.Extensions.Options;
+using Twt.Lwp.Web.Configuration;
 
-namespace Core.Emp.Sys.Main.Controllers
+namespace Twt.Lwp.Web.Controllers
 {
-	[Route("api/[controller]")]
-	[ResponseCache(CacheProfileName = "PrivateCache")]
+	[Route ("api/[controller]")]
+	[ResponseCache (CacheProfileName = "PrivateCache")]
 	public class TweetController : Controller
 	{
 		//	private IEntityService<int, Employee>	_EmployeeService = null;		// Employee Service
@@ -27,48 +30,63 @@ namespace Core.Emp.Sys.Main.Controllers
 		//		_EmployeeService = new EntityService<int, Employee> (iContext);
 		//	}
 
+		private	readonly TwitterAuth		_twitterAuth;
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public TweetController ()
+		public TweetController (IOptions<TwitterAuth> options)
 		{
 			/// Initialize Member Variables <BR>
+			this._twitterAuth = options.Value;
 		}
 
 		// GET: api/values
-		[HttpGet("GetAll")]
+		[HttpGet ("GetAll")]
 		public async Task<IActionResult> GetAll ()
 		{
 			/// Get All Records <BR>
 			var _allrecord = new object ();
 			return new JsonResult (_allrecord, DefJsonFormat);
 		}
-		
+
 
 		// GET: api/values
-		[HttpGet("GetByUser/{name}")]
+		[HttpGet ("GetByUser/{name}")]
 		public async Task<IActionResult> GetByUser (string name)
 		{
 			////string _url = "http://search.twitter.com/search.json?q=pluralsight";
 			//string _url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=twitterapi&count=2";
-			var _allrecord = new User ();			// User Information
-			var _tweetList = new List<Tweet> ();	// Tweet List
-
-			//var _client = new HttpClient();
-			//var _task = await _client.GetAsync (_url);
-			//var _response = await _task.Content.ReadAsAsync<List<Tweet>> ();
+			var _allrecord = new Twt.Lwp.Models.User ();			// User Information
+			var _tweetList = new List<Tweet> ();					// Tweet List
 
 
-			//var _task = _client.GetAsync (_url).ContinueWith ((_taswithmsg) => 
-			//{
-			//	var		_response = _taswithmsg.Result;
-			//	var		_jsonTask = _response.Content.ReadAsStringAsync();
-			//	_jsonTask.Wait ();
+			var auth = new SingleUserAuthorizer
+			{
+				CredentialStore = new InMemoryCredentialStore
+				{
+					ConsumerKey 		= _twitterAuth.ConsumerKey,
+					ConsumerSecret 		= _twitterAuth.ConsumerSecret,
+					OAuthToken 			= _twitterAuth.OAuthToken,
+					OAuthTokenSecret 	= _twitterAuth.OAuthTokenSecret
+				}
+			};
 
-			//	var		_jsonObject = _jsonTask.Result;
-			//	_allrecord.AddRange (
-			//		(from JsonObject
-			//});
+			var twitterCtx = new TwitterContext(auth);
+
+			var tweets = (from tweet in twitterCtx.Status
+							where tweet.Type == StatusType.User
+								&& tweet.ScreenName == "@MacquarieTelco"
+							select tweet).Take (3);
+
+			foreach (var item in tweets) {
+
+				int myCount = item.RetweetCount;
+			}
+
+
+
+
 
 
 			//
@@ -78,7 +96,7 @@ namespace Core.Emp.Sys.Main.Controllers
 			_tweetList.Add (new Tweet () { Title = "First Tweet", Message = "The Modify Note command will be started and the main window will be displayed. Even if no product No. is open, this command can be executed in the Harness Drawing Input,  Customer Module Design, Sub-assy Design and Full-size Drawing Design modes.  If the user section’s constant server has not been registered in the common master <Server ID>(0079) when starting the command, the error message “e-201” will be displayed and the", RetweetCount = 3, LikeCount = 1 });
 			_tweetList.Add (new Tweet () { Title = "Second Tweet", Message = "The Modify Note command will be started and the main window will be displayed. Even if no product No. is open, this command can be executed in the Harness Drawing Input,  Customer Module Design, Sub-assy Design and Full-size Drawing Design modes.  If the user section’s constant server has not been registered in the common master <Server ID>(0079) when starting the command, the error message “e-201” will be displayed and the", RetweetCount = 2, LikeCount = 2 });
 			_tweetList.Add (new Tweet () { Title = "Third Tweet", Message = "The Modify Note command will be started and the main window will be displayed. Even if no product No. is open, this command can be executed in the Harness Drawing Input,  Customer Module Design, Sub-assy Design and Full-size Drawing Design modes.  If the user section’s constant server has not been registered in the common master <Server ID>(0079) when starting the command, the error message “e-201” will be displayed and the", RetweetCount = 1, LikeCount = 1 });
-			_allrecord = new User () { Name = name, Tweets = _tweetList };
+			_allrecord = new Twt.Lwp.Models.User () { Name = name, Tweets = _tweetList };
 
 			/// Return JSON Result <BR>
 			return new JsonResult (_allrecord, DefJsonFormat);
@@ -189,6 +207,6 @@ namespace Core.Emp.Sys.Main.Controllers
 				};
 			}
 		}
-		
+
 	}
 }

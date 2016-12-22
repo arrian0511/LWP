@@ -5,7 +5,6 @@
             "name": "Launch Chrome against localhost, with sourcemaps",
             "type": "chrome",
             "request": "launch",
-            "runtimeExecutable": "E:/Data/Others/Softwares/Chrome/GC Portable/Executable/chrome.exe",
             "url": "http://localhost:5000",
             "sourceMaps": true,
             "webRoot": "${workspaceRoot}/wwwroot",
