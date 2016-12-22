@@ -9,11 +9,15 @@ namespace Twt.Lwp.Models
 	{
 		public Tweet ()
 		{
-			this.Name = string.Empty;
-			this.Message = string.Empty;
+			this.Title			= string.Empty;
+			this.Message		= string.Empty;
+			this.RetweetCount	= 0;
+			this.LikeCount		= 0;
 		}
 
-		public string Name		{ get; set; }
-		public string Message	{ get; set; }
+		public string	Title			{ get; set; }
+		public string	Message			{ get; set; }
+		public int		RetweetCount	{ get; set; }
+		public int		LikeCount		{ get; set; }
 	}
 }
