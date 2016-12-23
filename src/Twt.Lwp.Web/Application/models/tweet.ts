@@ -1,12 +1,12 @@
 ﻿export class Tweet
 {
-	public Title: 			string;
 	public Message:			string;
+	public CreatedDate:		Date;
 	public RetweetCount: 	number;
 	public LikeCount: 		number;
 
 	constructor() {
-		this.Title			= "";
+		this.CreatedDate	= new Date();
 		this.Message		= "";
 		this.RetweetCount	= 0;
 		this.LikeCount		= 0;

@@ -1,12 +1,12 @@
 ﻿import {Injectable} from "@angular/core";
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Http, Response, Headers, RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {TwitterInput} from "../models/twitterinput";
 
 @Injectable()
 export class AppService
 {
 	private		mHttp: Http;
-	private		mEmpUrl = "api/employee/";
 
 	constructor(iHttp: Http) {
 		this.mHttp = iHttp;
@@ -24,40 +24,23 @@ export class AppService
 				._catch(this.handleError);
 	}
 
-	public GetByUser(_url: string, _user: string): Observable<any> {
+	public GetByUser(_url: string, _user: string, _count: number): Observable<any> {
+		// let 	params = new URLSearchParams ();
+		// params.set('name', 'Arrian');
+
 		return this.mHttp.get(_url + _user)
 				.map(response => response.json())
 				._catch(this.handleError);
 	}	
 
-	public CreateRecord(_url: string, _record: any): Observable<any> {
-	
-		let body = JSON.stringify(_record);
-		let headers = new Headers({ 'Content-Type': 'application/json' });
-		let options = new RequestOptions({ headers: headers });
-	
-		return this.mHttp.post(_url, body, options)
-						 .map(res => res.json().message)
-						 ._catch(this.handleError);
-	}
+	public GetByInput(_url: string, _input: TwitterInput): Observable<any> {
+		// let 	params = new URLSearchParams ();
+		// params.set('name', 'Arrian');
 
-	public UpdateRecord(_url: string, _record: any, _id: number): Observable<any> {
-
-		var updateUrl = _url + _id;
-		var body = JSON.stringify(_record);
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-
-		return this.mHttp.put(updateUrl, body, { headers: headers })
-						 .map(response => response.json ())
-						 ._catch(this.handleError);
-	}
-
-	public DeleteRecord(_url: string, _id: string): Observable<string> {
-		return this.mHttp.delete(_url + _id)
+		return this.mHttp.get(_url + _input)
 				.map(response => response.json())
 				._catch(this.handleError);
-	}
+	}		
 
 	private extractData(_response: Response) {
 		let	body = _response.json ();

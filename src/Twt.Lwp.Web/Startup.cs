@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
-using Twt.Lwp.Web.Configuration;
+using Twt.Lwp.Models;
 
 namespace Twt.Lwp.Web
 {
