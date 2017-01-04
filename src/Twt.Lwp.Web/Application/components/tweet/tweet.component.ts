@@ -1,24 +1,44 @@
-﻿import {Component, OnInit}			from "@angular/core";
+﻿import {Component, OnInit}								from "@angular/core";
 import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
 
-import {TAppDefinition} from "../../definition/app.definition";
-import {Tweet} from "../../models/tweet";
-import {User} from "../../models/user";
-import {TwitterInput} from "../../models/twitterinput";
+import {TAppDefinition} 	from "../../definition/app.definition";
+import {Tweet} 				from "../../models/tweet";
+import {User} 				from "../../models/user";
+import {Profile} 			from "../../models/profile";
 
-import {AppService}	from "../../services/app.service";
+import {AppService}			from "../../services/app.service";
+
+///
+/// Tweet Toggle Information
+///
+export class TweetToggleInfo
+{
+	public	TweetNo:	string;
+	public	IsActive:	boolean;
+
+	constructor(_tweetNo: string, _isActive: boolean) {
+		this.TweetNo	= _tweetNo;
+		this.IsActive 	= _isActive;
+	}
+};
 
 @Component({
   selector: "tweet",
   templateUrl: "views/tweet/tweet.html"
 })
 
+///
+/// Tweet Component
+///
 export class TweetComponent implements OnInit
 {
 	// Twitter Data
-	public		mApiUrl:		string;				// WEB-API URL
-	public		mTweets:		Array<User>;		// Tweet List
-	public		mFormCreate:	FormGroup;			// Form Create
+	public		mIsLoading:			boolean;					// Loading Flag
+	public		mTweets:			Array<User>;				// Tweet List
+	public		mFormCreate:		FormGroup;					// Form Create
+
+	private		_mApiUrl:			string;						// WEB-API URL
+	private		_mTweetToggleInfo:	Array<TweetToggleInfo>;		// Tweet Toggle Information
 
 	// Providers
 	private		_mService:		AppService;			// Application Service
@@ -26,7 +46,7 @@ export class TweetComponent implements OnInit
 
 	// Controls
 	private		_mTxtUserName:	FormControl;		// User Name Form Control
-	private		_mRecCount:		FormControl;		// Record Count
+	private		_mTxtRecCount:	FormControl;		// Record Count
 
 	///
 	/// Constructor
@@ -37,67 +57,71 @@ export class TweetComponent implements OnInit
 		/// Initialize Member Variables
 		this._mService		= iService;
 		this._mFb 			= iFb;
-		this.mApiUrl 		= "api/tweet/"
+		this.mIsLoading 	= false;
+		this._mApiUrl 		= "api/tweet/"
 		this.mTweets 		= new Array<User>();
+		this._mTweetToggleInfo	= new Array<TweetToggleInfo>();
 	}
 
+	///
+	/// Initialization
+	///
 	ngOnInit() {
 
 		/// Initialize Form Conrols
 		this._OnInitForm ();
 	}
 
+	///
+	/// On Initialize Form Layout
+	///
 	private _OnInitForm() {
 
 		/// Set Control
 		this._mTxtUserName	= new FormControl (null, Validators.required);
-		// this._mRecCount		= new FormControl (null, Validators.required);
+		this._mTxtRecCount	= new FormControl (null, Validators.required);
 
 		/// Set Form Data
 		this.mFormCreate = this._mFb.group({
 			UserName:	this._mTxtUserName,
-			RecCount:	this._mRecCount
+			RecCount:	this._mTxtRecCount
 		});
 	}
 
-	private _OnClearFormCtl() {
-
-		/// Clear Form Control
-		this._mTxtUserName.reset ();
-		this._mRecCount.reset ();
-	}
-
+	///
+	/// On Click Submit Button Event
+	///
 	private _OnSubmitForm(_event: any, _value: any) {
-		// var _record = this._mService.GetByUser (this.mApiUrl + "GetByUser/", this._mTxtUserName.value + "/", 2);
-		//var _record = this._mService.GetByUser (this.mApiUrl + "GetByUser/", this._mTxtUserName.value, 2);
-		let input: TwitterInput;
-		input = new TwitterInput ();
-		input.UserName = "Arrian";
-		input.RecordCount = 5;
-		var _record = this._mService.GetByInput (this.mApiUrl + "GetByUser/", input);
-
-		//var _data = this._mRecCount.value;
 		// Clear Current Record 
-		this.mTweets = new Array<User>();
+		this.mTweets 			= new Array<User>();
+		this._mTweetToggleInfo 	= new Array<TweetToggleInfo>();
 
-		// Set Data to forms
+		this.mIsLoading = true;
+
+		// Get Record From Web API
+		var _record = this._mService.GetByUser (this._mApiUrl + "GetByUser/", 
+												this._mTxtUserName.value, 
+												this._mTxtRecCount.value);
 		_record.subscribe(item => {
 			var	_tweet = item as Array<User>;		// Employee Data
 			this.mTweets = _tweet;
+			this.mIsLoading = false;
 		});
 	}	
 
-	private _OnGetCreDate(_date: Date): string {
+	///
+	/// On Get Creation Date
+	///
+	private _OnGetCreDate(_itemDate: Date): string {
 		let		strDate:		string;	// String Date
 		let		_customdate:	Date;	// Custom Date
 
-		/// Set Custom Date
-		_customdate = new Date(_date.toString());
+		/// Convert Date
+		_customdate = new Date(parseInt(_itemDate.toString().match(/\d+/)[0], 10));
 
 		/// Set String Date
-		if (_date != null) {
-			strDate = this._ConvertMonth (_customdate.getMonth());
-			strDate += " " + _customdate.getDay ();
+		if (_customdate != null) {
+			strDate = _customdate.toString ();
 		}
 		else {
 			strDate = "No Date";
@@ -107,53 +131,45 @@ export class TweetComponent implements OnInit
 		return strDate;
 	}
 
-	private _ConvertMonth (_iValue: number): string {
-		let		monthStr: string;		// String monthStr
+	///
+	/// On Click Toggle Tweet
+	///
+	private _OnClickToggleTweet (_itemNo: number): void {
 
-		/// Set Month String
-		switch (_iValue) {
-			case 1:
-				monthStr = "January";
-				break;
-			case 2:
-				monthStr = "February";
-				break;
-			case 3:
-				monthStr = "March";
-				break;
-			case 4:
-				monthStr = "April";
-				break;
-			case 5:
-				monthStr = "May";
-				break;
-			case 6:
-				monthStr = "June";
-				break;
-			case 7:
-				monthStr = "July";
-				break;
-			case 8:
-				monthStr = "August";
-				break;
-			case 9:
-				monthStr = "September";
-				break;
-			case 10:
-				monthStr = "October";
-				break;
-			case 11:
-				monthStr = "November";
-				break;
-			case 12:
-				monthStr = "December";
-				break;
-			default:
-				monthStr = "N/A";
-				break;
+		/// Add Record if it is not exist
+		var toggleInfo = this._mTweetToggleInfo.find (_value => {
+			return _value.TweetNo == _itemNo.toString();
+		});
+		if (toggleInfo == null) {
+			this._mTweetToggleInfo.push (new TweetToggleInfo(_itemNo.toString(), false));
 		}
 
-		/// Return Month String
-		return monthStr;
+		/// Close All Other Tweet Panel
+		for (var _idx = 0; _idx < this._mTweetToggleInfo.length; _idx++) {
+			if (this._mTweetToggleInfo[_idx].TweetNo == _itemNo.toString()) {
+				this._mTweetToggleInfo[_idx].IsActive = !this._mTweetToggleInfo[_idx].IsActive;
+			}
+			else {
+				this._mTweetToggleInfo[_idx].IsActive = false;
+			}
+		}
+	}
+
+	///
+	/// Is Active (Tweet)
+	///
+	private _IsActive (_tweetNo: string): boolean {
+		let		_isActive: 	boolean = false;
+
+		/// Add Record if it is not exist
+		var toggleInfo = this._mTweetToggleInfo.find (_value => {
+			return _value.TweetNo == _tweetNo.toString();
+		});
+		if (toggleInfo != null) {
+			_isActive = toggleInfo.IsActive;
+		}
+
+		/// Return Active Status
+		return _isActive;
 	}
 }

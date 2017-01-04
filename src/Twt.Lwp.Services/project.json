@@ -1,0 +1,19 @@
+{
+	"version": "1.0.0-*",
+
+    "dependencies": {
+        "EntityFramework.Core": "7.0.0-beta8",
+        "linqtotwitter": "4.1.0",
+        "NETStandard.Library": "1.6.0",
+        "Twt.Lwp.Models": "1.0.0-*"
+    },
+
+	"frameworks": {
+		"netstandard1.6": {
+			"imports": [
+				"dnxcore50",
+				"portable-net45+win8"
+			]
+		}
+	}
+}

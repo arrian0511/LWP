@@ -19,17 +19,12 @@ var srcPaths = {
 		'node_modules/reflect-metadata/**',
 		'node_modules/systemjs/dist/**',
 		'node_modules/typescript/**',
-		'node_modules/ng2-bootstrap/**',
 		'node_modules/bootstrap/**',
-		'node_modules/bootflat/**',
 		'node_modules/jquery/**',
-		'node_modules/ng2-charts/**',
-		'node_modules/ng2-sidebar/**',
-		'node_modules/chart.js/**',
 		'node_modules/moment/**',
 		'node_modules/angular2-fontawesome/**',
 		'node_modules/font-awesome/**',
-		'node_modules/web-animations-js/**'
+		'node_modules/ng-spin-kit/**'
 	],
 	contents: [
 		'Contents/**'

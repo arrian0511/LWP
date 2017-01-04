@@ -1,5 +1,8 @@
 import {Tweet} from "./tweet";
 
+///
+/// User Model
+///
 export class User
 {
 	public Name:		string;

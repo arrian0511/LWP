@@ -24,6 +24,7 @@
 			'@angular/router': 'npm:@angular/router/bundles/router.umd.js',
 			'@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 			'ng2-bootstrap/ng2-bootstrap': 'npm:ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
+			'ng-spin-kit': 'npm:ng-spin-kit',
 
 			// other libraries
 			'rxjs': 'npm:rxjs',
@@ -36,6 +37,10 @@
 				defaultExtension: 'js'
 			},
 			rxjs: {
+				defaultExtension: 'js'
+			},
+			'ng-spin-kit': {
+				main: './dist/main.js',
 				defaultExtension: 'js'
 			}
 		},

@@ -1,31 +1,52 @@
-﻿<div class="user-container">
+﻿<!--User Container-->
+<div class="user-container">
 	<form [formGroup]="mFormCreate" (ngSubmit)="_OnSubmitForm($event, mFormCreate.value)">
 		<div class="form-group" [ngClass]="{'has-error': !mFormCreate.controls['UserName'].valid}">
-			<input class="form-control" type="text" placeholder="Enter User Name" 
+			<input class="form-control" type="text" placeholder="@twitter handle here" 
 					[formControl]="mFormCreate.controls['UserName']">
 		</div>
-		<div class="form-group">
-			<label for="_selectItem">Example select</label>
+		<div class="form-group" [ngClass]="{'has-error': !mFormCreate.controls['RecCount'].valid}">
+			<label for="_selectItem">Number of Top Tweets to display...</label>
 			<select class="form-control" [formControl]="mFormCreate.controls['RecCount']" id="_selectItem">
-				<option [value]="1">1</option>
+				<option>1</option>
 				<option>2</option>
 				<option>3</option>
 				<option>4</option>
 				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
+				<option>13</option>
+				<option>14</option>
+				<option>15</option>
 			</select>
 		</div>
-		<button class="btn btn-outline-success" [disabled]="!mFormCreate.valid" type="submit">Search</button>
+		<button class="btn btn-outline-primary" [disabled]="!mFormCreate.valid" type="submit">Search</button>
 	</form>
 </div>
 
+<!--Tweets Result-->
 <div class="tweet-container">
-	<ul class="tweet-item">
-		<li *ngFor="let _item of mTweets.Tweets">
-			<!--<span class="tweet-title">{{_OnGetCreDate(_item.CreatedDate)}}</span>-->
-			<a class="tweet-message"><span>{{_item.Message}}</span></a>
-			<span class="tweet-date label text-primary">{{_OnGetCreDate(_item.CreatedDate)}}</span>
-			<i class="fa fa-retweet fa-lg">{{_item.RetweetCount}}</i>
-			<i class="fa fa-heart fa-lg">{{_item.LikeCount}}</i>
+	<div class="tweet-loading" *ngIf="mIsLoading">
+		<sk-circle></sk-circle>
+	</div>
+	<ul class="tweet-item" *ngIf="!mIsLoading">
+		<li *ngFor="let _item of mTweets.Tweets" (click)="_OnClickToggleTweet(_item.No)" 
+												 [ngClass]="{'active': _IsActive(_item.No)}">
+			<span class="tweet-title">{{_item.No}}</span>
+			<div class="tweet-content">
+				<a class="tweet-message">
+					<span [innerHtml]="_item.Message | highlight"></span>
+					<img *ngIf="_IsActive(_item.No)" alt="image" class="tweet-image" src="{{_item.ProfInfo.ImageUrl}}" />
+				</a>
+				<span class="tweet-date label text-primary">{{_OnGetCreDate(_item.CreatedDate) | date: 'yMMMMd'}}</span>
+				<i class="fa fa-retweet fa-lg">{{_item.RetweetCount}}</i>
+				<i class="fa fa-heart fa-lg">{{_item.LikeCount}}</i>
+			</div>
 		</li>
 	</ul>
 </div>

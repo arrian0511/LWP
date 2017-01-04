@@ -16,21 +16,33 @@ namespace Twt.Lwp.Models
 		public Tweet ()
 		{
 			/// Initialize Member Variables <BR>
+			this.No				= 0;
 			this.Message		= string.Empty;
+			this.ProfInfo		= new Profile ();
 			this.CreatedDate	= new DateTime ();
 			this.RetweetCount	= 0;
 			this.LikeCount		= 0;
 		}
 
 		/// <summary>
-		/// Created Date
+		/// No
 		/// </summary>
-		public DateTime CreatedDate		{ get; set; }
+		public int		No				{ get; set; }
 
 		/// <summary>
 		/// Message
 		/// </summary>
 		public string	Message			{ get; set; }
+
+		/// <summary>
+		/// Profile Information
+		/// </summary>
+		public Profile	ProfInfo		{get ; set; }
+
+		/// <summary>
+		/// Created Date
+		/// </summary>
+		public DateTime CreatedDate		{ get; set; }
 
 		/// <summary>
 		/// Retweet Count

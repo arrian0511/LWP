@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Twt.Lwp.Models;
+using Twt.Lwp.Services;
 
 namespace Twt.Lwp.Web
 {
@@ -44,6 +45,9 @@ namespace Twt.Lwp.Web
 			// Add our Config object so it can be injected
 			services.Configure<TwitterAuth>(Configuration.GetSection("TwitterAuth"));
 			services.AddSingleton(Configuration);
+
+			// Add Services for Dependency Injection
+			services.AddSingleton<ITwitterService, TwitterService> ();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
